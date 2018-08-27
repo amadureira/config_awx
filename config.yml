@@ -3,39 +3,39 @@
   vars: 
    ansible_connection: local
   tasks: 
-#  - name: Create Orga
-#    shell: tower-cli config
-#  - name: Create Orga
-#    tower_organization: 
-#     name: Teste
-#     state: present
-#     tower_host: http://localhost
-#     tower_username: admin
-#     tower_password: password
-#     tower_verify_ssl: False
+   - name: Create Orga
+     shell: tower-cli config
+   - name: Create Orga
+     tower_organization: 
+      name: Teste
+      state: present
+      tower_host: http://localhost
+      tower_username: admin
+      tower_password: password
+      tower_verify_ssl: False
 
-#  - name: Create user
-#    tower_user: 
-#     username: "{{item.username}}"
-#     password: "{{item.password}}"
-#     email: anderson@teste.com
-#     tower_host: http://localhost
-#     tower_verify_ssl: False
-#     state: present
-#    when: item.username != 'admin'
-#    with_items:
-#       - {"username":"teste1","password":"pass"}
-#       - {"username":"teste2","password":"pass"}
-#       - {"username":"teste3","password":"pass"}
+   - name: Create user
+     tower_user: 
+      username: "{{item.username}}"
+      password: "{{item.password}}"
+      email: anderson@teste.com
+      tower_host: http://localhost
+      tower_verify_ssl: False
+      state: present
+     when: item.username != 'admin'
+     with_items:
+        - {"username":"teste1","password":"pass"}
+        - {"username":"teste2","password":"pass"}
+        - {"username":"teste3","password":"pass"}
    - name: Config permission
      tower_role:
       user: "{{item.user | default(None)}}"
-#     target_team: "{{item.target_team | default(None)}}"
+      target_team: "{{item.target_team | default(None)}}"
       organization: "{{item.organiation| default(None)}}"
       role: "{{item.role}}"
       tower_host: http://localhost
       tower_verify_ssl: False
-#     tower_config_file: /home/amadureira/.tower_cli.cfg
+      tower_config_file: /home/amadureira/.tower_cli.cfg
       state: "{{item.state}}"
      when: item.role is defined
      with_items:
