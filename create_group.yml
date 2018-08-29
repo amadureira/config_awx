@@ -1,0 +1,22 @@
+---
+- hosts: awx
+  vars:
+  tasks: 
+   - name: Create Inventory
+     tower_inventory: 
+      name: "Foo Inventorys"
+      description: "Our Foo Cloud Servers"
+      organization: "Teste"
+      state: present
+   - name: Create Group 
+     tower_group: 
+      inventory: "Foo Inventorys"
+      name:  Testes
+     register: fs_group_mongo
+   - name: Create Host
+     tower_host: 
+      inventory: "Foo Inventorys"
+      name: "host"
+     register: fs_host_mongo
+   - name: Associate host group 
+     shell: tower-cli host associate  --host "{{fs_host_mongo.id}}" --group "{{fs_group_mongo.id}}"
